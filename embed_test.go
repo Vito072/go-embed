@@ -3,6 +3,8 @@ package go_embed
 import (
 	_ "embed"
 	"fmt"
+	"io/fs"
+	"io/ioutil"
 	"testing"
 )
 
@@ -11,4 +13,14 @@ var version string
 
 func TestEmbed(t *testing.T) {
 	fmt.Println(version)
+}
+
+//go:embed logo.png
+var logo []byte
+
+func TestByteArray(t *testing.T) {
+	err := ioutil.WriteFile("Logo2.png", logo, fs.ModePerm)
+	if err != nil {
+		panic(err)
+	}
 }
